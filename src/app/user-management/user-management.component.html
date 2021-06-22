@@ -1,0 +1,101 @@
+<div class="offset1 span11">
+    <div class="row-fluid  form-horizontal">
+        <div class="span12">
+            <input type="button" (click)="RetrieveUsers()" value="Delete User" />
+            <input type="button" (click)="EnableUserCreation()" value="Create New User" />
+            <input type="button" value="LogOff" (click)="LogOff()" />
+            <input type="submit" value="Find my Statistics" (click)="RetrieveUsersForStat()" />
+            <div [hidden]="!createNewUser">
+                <h2>Create New User</h2>
+                <form onsubmit="CreateNewUser()">
+                    <div class="control-group">
+                        <label for="txtUserIdnew" class="control-label">User ID</label>
+                        <div class="controls">
+                            <input name="txtUserIdnew" type="text" ng-model="userIdNew" maxlength="255" id="txtuserIdnew">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="txtUserFirstName" class="control-label">User FirstName</label>
+                        <div class="controls">
+                            <input name="txtUserFirstName" type="text" ng-model="userFirstName" maxlength="255" id="txtUserFirstName">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="txtUserLastName" class="control-label">User LastName</label>
+                        <div class="controls">
+                            <input name="txtUserLastName" type="text" ng-model="userLastName" maxlength="255" id="txtUserLastName">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="txtPasswordnew" class="control-label">Password(Only while creating admin user.Please Choose a strong password, a combination of upper case, Lower case,numbers, and special characters)</label>
+                        <div class="controls">
+                            <input name="txtPasswordnew" type="password" ng-model="passwordNew" maxlength="255" id="txtPasswordnew">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="submit" value="Create" (click)="CreateNewUser()" />
+                        </div>
+                    </div>
+                </form>
+                <p [hidden]="!userCreated">User Created</p>
+                <p [hidden]="!userCreationFailed" class="text-danger">Please check your Username and Password.<br>It is possible that the username already exists.</p>
+            </div>
+            <div [hidden]="!deleteUser">
+                <form onsubmit="DeleteUser()">
+                    <select ng-model="selectedUser">
+                        <option value="">Please choose...</option>
+                        <option *ngFor="let user in userList" ng-bind:value="user">{{ user }}</option>
+                    </select>
+                    <input type="submit" value="Delete" (click)="DeleteUser()" />
+                </form>
+                <p [hidden]="!failedDelete" class="text-danger">Failed to Delete User.<br>It is possible that the username already Deleted.</p>
+                <p [hidden]="!userDeleted" class="text-danger">User Deleted.</p>
+            </div>
+            <div [hidden]="!DisplayStats">
+                <form onsubmit="RetrieveUserStat()">
+                    <select ng-model="selectedUserforStat">
+                        <option value="">Please choose...</option>
+                        <option *ngFor="let user in userList" ng-bind:value="user">{{ user }}</option>
+                    </select>
+                    <input type="submit" value="Display Stats" (click)="RetrieveUserStat()" />
+                </form>
+                <div [hidden]="!StatsVisible" style="background-color: blue">
+                    <p style="color: white">Last Twelve Bets</p>
+                    <p style="color: red" [hidden]="!HotNumberFailure">Unable to Retrieve Last Twelve Bets. Please contact system administrator.</p>
+                    <div style="background-color: white" [hidden]="!!LastTwelveBetFailure">
+                        <p *ngFor="let LastTwelveBet in LastTwelveBets" ng-style="{'color':LastTwelveBet.Color.Name}">{{LastTwelveBet.Number}}</p>
+                    </div>
+
+                    <p style="color: white">Odd vs Even Statistics:</p>
+                    <p style="color: red" [hidden]="!OddEvenStatsFailure">Unable to Retrieve Odd Even statistics. Please contact system administrator.</p>
+                    <div [hidden]="!!OddEvenStatsFailure">
+                        <p style="color: white">Odd:{{OddEvenStats.Odd}}%</p>
+                        <p style="color: white">Even:{{OddEvenStats.Even}}%</p>
+                    </div>
+                    <p style="color: white">Color Statistics</p>
+                    <p style="color: red" [hidden]="!ColorStatsFailure">Unable to Retrieve Color statistics. Please contact system administrator.</p>
+                    <div [hidden]="!!ColorStatsFailure">
+                        <p style="color: white">Black:{{ColorStats.Black}}%</p>
+                        <p style="color: white">Red:{{ColorStats.Red}}%</p>
+                    </div>
+                    <p style="color: white">Zero Percentage</p>
+                    <p style="color: red" [hidden]="!ZeroFailure">Unable to Retrieve Zero Percentage. Please contact system administrator.</p>
+                    <div style="background-color: white" [hidden]="!!ZeroFailure">
+                        <p style="color: green">0:{{Zero.Zero}}%</p>
+                    </div>
+                    <p style="color: white">Hot Numbers</p>
+                    <p style="color: red" [hidden]="!HotNumberFailure">Unable to Retrieve Hot Numbers. Please contact system administrator.</p>
+                    <div style="background-color: white" [hidden]="!!HotNumberFailure">
+                        <p *ngFor="let HotNumber in HotNumbers" ng-style="{'color':HotNumber.Color.Name}">{{HotNumber.Number}}</p>
+                    </div>
+                    <p style="color: white">Cool Numbers</p>
+                    <p style="color: red" [hidden]="!CoolNumberFailure">Unable to Retrieve Cool Numbers. Please contact system administrator.</p>
+                    <div style="background-color: white" [hidden]="!!CoolNumberFailure">
+                        <p *ngFor="let CoolNumber in CoolNumbers" ng-style="{'color':CoolNumber.Color.Name}">{{CoolNumber.Number}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

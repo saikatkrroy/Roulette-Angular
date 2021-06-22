@@ -1,0 +1,91 @@
+
+
+<div style="position: fixed; background-color: Black">
+    <a (click)="RetrieveStats()">Find my Statistics</a>&nbsp;&nbsp;
+    <a (click)="LogOff()">LogOff</a>
+</div>
+<br />
+<br />
+<p [hidden]="!UpdateUserInput">Please enter your new bet here</p>    
+    <p>Select your Number:</p>
+    <p style="color: red" [hidden]="!NumberLoadFailed"> Failed to load numbers</p>
+    <div>
+        <input type="button" style="color: white; background-color: green" value="0" (click)="bet=0"/>
+        <input type="button" style="color: white; background-color: red" value="1" (click)="bet=1"/>
+        <input type="button" style="color: white; background-color: black" value="2" (click)="bet=2"/>
+        <input type="button" style="color: white; background-color: red" value="3" (click)="bet=3"/>
+        <input type="button" style="color: white; background-color: black" value="4" (click)="bet=4"/>
+        <input type="button" style="color: white; background-color: red" value="5" (click)="bet=5"/>
+        <input type="button" style="color: white; background-color: black" value="6" (click)="bet=6"/>
+        <input type="button" style="color: white; background-color: red" value="7" (click)="bet=7"/>
+        <input type="button" style="color: white; background-color: black" value="8" (click)="bet=8"/>
+        <input type="button" style="color: white; background-color: red" value="9" (click)="bet=9"/>
+        <input type="button" style="color: white; background-color: black" value="10" (click)="bet=10"/>
+        <input type="button" style="color: white; background-color: black" value="11" (click)="bet=11"/>
+        <input type="button" style="color: white; background-color: red" value="12" (click)="bet=12"/>
+        <input type="button" style="color: white; background-color: black" value="13" (click)="bet=13"/>
+        <input type="button" style="color: white; background-color: red" value="14" (click)="bet=14"/>
+        <input type="button" style="color: white; background-color: black" value="15" (click)="bet=15"/>
+        <input type="button" style="color: white; background-color: red" value="16" (click)="bet=16"/>
+        <input type="button" style="color: white; background-color: black" value="17" (click)="bet=17"/>
+        <input type="button" style="color: white; background-color: red" value="18" (click)="bet=18"/>
+        <input type="button" style="color: white; background-color: black" value="19" (click)="bet=19"/>
+        <input type="button" style="color: white; background-color: black" value="20" (click)="bet=20"/>
+        <input type="button" style="color: white; background-color: red" value="21" (click)="bet=21"/>
+        <input type="button" style="color: white; background-color: black" value="22" (click)="bet=22"/>
+        <input type="button" style="color: white; background-color: red" value="23" (click)="bet=23"/>
+        <input type="button" style="color: white; background-color: black" value="24" (click)="bet=24"/>
+        <input type="button" style="color: white; background-color: red" value="25" (click)="bet=25"/>
+        <input type="button" style="color: white; background-color: black" value="26" (click)="bet=26"/>
+        <input type="button" style="color: white; background-color: red" value="27" (click)="bet=27"/>
+        <input type="button" style="color: white; background-color: black" value="28" (click)="bet=28"/>
+        <input type="button" style="color: white; background-color: black" value="29" (click)="bet=29"/>
+        <input type="button" style="color: white; background-color: red" value="30" (click)="bet=30"/>
+        <input type="button" style="color: white; background-color: black" value="31" (click)="bet=31"/>
+        <input type="button" style="color: white; background-color: red" value="32" (click)="bet=32"/>
+        <input type="button" style="color: white; background-color: black" value="33" (click)="bet=33"/>
+        <input type="button" style="color: white; background-color: red" value="34" (click)="bet=34"/>
+        <input type="button" style="color: white; background-color: black" value="35" (click)="bet=35"/>
+        <input type="button" style="color: white; background-color: red" value="36" (click)="bet=36"/>
+    </div>
+    <input type="submit" value="Submit" (click)="PlaceYourBet()">
+
+
+    <p [hidden]="!BetPlaced">Your Bet is Placed</p>
+            <p [hidden]="!ActionFailed">Failed to place your bet</p>
+            <p [hidden]="!DeleteUserInput">Bet Deleted</p>
+            <p [hidden]="!!formValidated">Please check all the fields</p>
+            <input type="button" value="Update Placed Bet" [hidden]="!BetPlaced" (click)="UserInputUpdate()" />
+            <input type="button" value="Delete Placed Bet" [hidden]="!BetPlaced" (click)="DeleteBet()" />
+            
+            <div [hidden]="!StatsVisible" style="background-color:blue">
+                <p style="color:white">Last Twelve Bets</p>
+                <p style="color:red" [hidden]="!HotNumberFailure">Unable to Retrieve Last Twelve Bets. Please contact system administrator.</p>
+                <div style="background-color:white" [hidden]="!!LastTwelveBetFailure"><p *ngFor="let LastTwelveBet of LastTwelveBets" ng-style="{'color':LastTwelveBet.Color.Name}">{{LastTwelveBet.Number}}</p></div>
+
+                <p style="color:white">Odd vs Even Statistics:</p>
+                <p style="color:red" [hidden]="!OddEvenStatsFailure">Unable to Retrieve Odd Even statistics. Please contact system administrator.</p>
+                <div [hidden]="!!OddEvenStatsFailure">
+                    <p style="color:white">Odd:{{OddEvenStats.Odd}}%</p>
+                    <p style="color:white">Even:{{OddEvenStats.Even}}%</p>
+                </div>
+                <p style="color:white">Color Statistics</p>
+                <p style="color:red" [hidden]="!ColorStatsFailure">Unable to Retrieve Color statistics. Please contact system administrator.</p>
+                <div [hidden]="!!ColorStatsFailure">
+                    <p style="color:white">Black:{{ColorStats.Black}}%</p>
+                    <p style="color:white">Red:{{ColorStats.Red}}%</p>
+                </div>
+                <p style="color:white">Zero Percentage</p>
+                <p style="color:red" [hidden]="!ZeroFailure">Unable to Retrieve Zero Percentage. Please contact system administrator.</p>
+                <div style="background-color:white" [hidden]="!!ZeroFailure">
+                    <p style="color:green">0:{{Zero.Zero}}%</p>
+                </div>
+                <p style="color:white">Hot Numbers</p>
+                <p style="color:red" [hidden]="!HotNumberFailure">Unable to Retrieve Hot Numbers. Please contact system administrator.</p>
+                <div style="background-color:white" [hidden]="!!HotNumberFailure"><p *ngFor="let HotNumber of HotNumbers" ng-style="{'color':HotNumber.Color.Name}">{{HotNumber.Number}}</p></div>
+                <p style="color:white">Cool Numbers</p>
+                <p style="color:red" [hidden]="!CoolNumberFailure">Unable to Retrieve Cool Numbers. Please contact system administrator.</p>
+                <div style="background-color:white" [hidden]="!!CoolNumberFailure">
+                    <p *ngFor="let CoolNumber of CoolNumbers" ng-style="{'color':CoolNumber.Color.Name}">{{CoolNumber.Number}}</p>
+                </div>
+            </div>
