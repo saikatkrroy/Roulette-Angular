@@ -2,12 +2,14 @@
 FROM node:latest as build-step
 RUN mkdir -p /src/app
 WORKDIR /src/app
-COPY package.json /src/app
+COPY package.json .
 RUN npm install -g npm
 RUN npm install
-COPY . /src/app
-RUN npm run build --prod
+COPY . .
+
+RUN npm run build
 # Stage 2
 FROM nginx:latest
-COPY --from=build-step /app/docs /usr/share/nginx/html
+#COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=build-step /src/app/dist/roulette-angular /usr/share/nginx/html
 #CMD ["ng","serve"]
