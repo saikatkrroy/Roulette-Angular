@@ -4,7 +4,7 @@ import { first } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SharedAuthTokenServiceService } from '../services/shared-auth-token-service.service'; 
-import { AuthServiceService } from '../Services/auth-service.service';
+import { AuthServiceService } from '../services/auth-service.service';
 import { LoginModel } from '../Models/LoginModel';
 @Component({
   selector: 'app-login',
