@@ -3,7 +3,7 @@ FROM node:latest as build-step
 RUN mkdir -p /src/app
 WORKDIR /src/app
 COPY package.json .
-RUN npm install -g npm
+#RUN npm install -g npm
 RUN npm install
 COPY . .
 
