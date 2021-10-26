@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: saikatkrroyrouletteangular 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: saikatkrroyrouletteangular
+  template:
+    metadata:
+      labels:
+        app: saikatkrroyrouletteangular 
+    spec:
+      containers:
+        - name: saikatkrroyrouletteangular 
+          image: rouletteangularcontainerregistry.azurecr.io/saikatkrroyrouletteangular
+          ports:
+          - containerPort: 80
